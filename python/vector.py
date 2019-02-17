@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+from math import sqrt
+from math import arccos
+
 class Vector(object):
 	"""Generic vec3 for point vector normal etc."""
 	def __init__(self, coordinates):
@@ -22,5 +25,29 @@ class Vector(object):
 	def __eq__(self, v):
 		return self.coordinates == v.coordinates
 
-mvVec = Vector([1.2, 2.5, 6.3])
-print mvVec
+	def __add__(self, v):
+		return [x + y for x,y in zip(self.coordinates,v.coordinates)]
+
+	def __sub__(self, v):
+		return [x - y for x,y in zip(self.coordinates,v.coordinates)] 
+
+	def mag(self):
+		coordsSquared = [x**2 for x in self.coordinates]
+		return sqrt(sum(coordsSquared))
+
+	def normalise(self):
+		mag = self.mag()
+		if mag > 0.:
+			return [x * 1./mag for x in self.coordinates]
+		else:
+			print('Cant normalise zero vector')
+			return [0.,0.,0.]
+
+
+	def dot(self, v):
+		#implement dot product
+		pass
+
+	def angle(self, v):
+		#implement angle between vectors
+		pass
